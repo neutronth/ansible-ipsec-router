@@ -1,0 +1,12 @@
+#jinja2: block_start_string: '[%', block_end_string: '%]', variable_start_string: '[[', variable_end_string: ']]'
+[global]
+access control = no
+
+[lns default]
+ip range = [[ xl2tpd_server.ip_range ]]
+local ip range = [[ xl2tpd_server.local_ip_range ]]
+refuse chap = yes
+refuse pap = yes
+require authentication = yes
+pppoptfile = /etc/ppp/xl2tpd-options
+length bit = yes

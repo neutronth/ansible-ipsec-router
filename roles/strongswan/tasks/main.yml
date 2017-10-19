@@ -1,0 +1,38 @@
+---
+- name: Install required packages
+  apt: name={{item}} state=installed
+  with_items:
+    - strongswan
+
+- name: /etc/ipsec.conf configuration
+  template:
+    src: ipsec.conf.j2
+    dest: /etc/ipsec.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart strongswan
+
+- name: /etc/ipsec.secrets configuration
+  template:
+    src: ipsec.secrets.j2
+    dest: /etc/ipsec.secrets
+    owner: root
+    group: root
+    mode: 0600
+  notify: restart strongswan
+
+- name: /etc/ipsec.d/conn-* configuration
+  template:
+    src: ipsec-conn.conf.j2
+    dest: "/etc/ipsec.d/conn-{{ item.key }}.conf"
+    owner: root
+    group: root
+    mode: 0644
+  with_dict: "{{ strongswan.ipsec_conns }}"
+  notify: restart strongswan
+
+- name: StrongSwan service
+  service:
+    name: strongswan
+    state: started

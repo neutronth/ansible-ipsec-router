@@ -1,0 +1,9 @@
+#jinja2: block_start_string: '[%', block_end_string: '%]', variable_start_string: '[[', variable_end_string: ']]'
+config setup
+  charondebug="ike 1, knl 1, cfg 0"
+
+conn %default 
+  keyexchange=ikev2
+  mobike=no
+
+include /etc/ipsec.d/conn-*.conf

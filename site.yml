@@ -1,0 +1,8 @@
+---
+- name: Provision IPSec Router
+  hosts: all
+  remote_user: root
+
+  roles:
+    - strongswan
+    - xl2tpd-server
