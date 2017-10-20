@@ -1,0 +1,35 @@
+---
+- name: Install required packages
+  apt: name={{item}} state=installed
+  with_items:
+    - xl2tpd
+
+- name: /etc/xl2tpd/xl2tpd.conf configuration
+  template:
+    src: xl2tpd.conf.j2
+    dest: /etc/xl2tpd/xl2tpd.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart xl2tpd 
+
+- name: /etc/ppp/xl2tpd-options configuration
+  template:
+    src: xl2tpd-options.j2
+    dest: /etc/ppp/xl2tpd-options
+    owner: root
+    group: root
+    mode: 0600
+  notify: restart xl2tpd 
+
+- name: Add remote endpoint route
+  shell: |
+    DEST=$(host {{ xl2tpd_client.server }} | awk '{print $4}')
+    GW=$(ip route | grep default | awk '{print $3}')
+
+    ip route replace $DEST via $GW
+
+- name: xl2tpd service
+  service:
+    name: xl2tpd
+    state: started

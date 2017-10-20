@@ -1,10 +1,10 @@
 #jinja2: block_start_string: '[%', block_end_string: '%]', variable_start_string: '[[', variable_end_string: ']]'
 conn [[ item.key ]]
   authby=secret
-  left=[[ item.value.left_host_ip ]]
-  leftid=[[ item.value.left_id ]]
+  left=[[ item.value.left_host ]]
+  leftid=@[[ item.value.left_host ]]
   leftfirewall=yes
-  right=[[ item.value.right_host_ip ]]
-  rightid=[[ item.value.right_id ]]
+  right=[[ item.value.right_host ]]
+  rightid=@[[ item.value.right_host ]]
   type=transport
   auto=route

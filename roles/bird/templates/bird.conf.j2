@@ -1,0 +1,39 @@
+#jinja2: block_start_string: '[%', block_end_string: '%]', variable_start_string: '[[', variable_end_string: ']]'
+log syslog all;
+
+router id [[ router_id.stdout_lines[0] ]];
+
+filter route_filter {
+ if net = 0.0.0.0/0 then reject;
+ if net ~ [[ bird.routing_subnet ]] then reject;
+ else accept;
+}
+
+protocol device {
+  scan time 8;
+}
+
+protocol kernel {
+  metric 64;
+  import none;
+  export all;
+  scan time 10;
+}
+
+protocol ospf {
+  rfc1583compat yes;
+  import filter route_filter;
+  export filter route_filter;
+
+  area 0.0.0.0 {
+    interface "[[ bird.ospf_interface.name ]]" {
+      type [[ bird.ospf_interface.type ]];
+    };
+  };
+}
+
+protocol static {
+[% for static in bird.static_routes %]
+  route [[  static.net ]] via [[ static.via ]];
+[% endfor %]
+}

@@ -1,0 +1,19 @@
+---
+- name: Enable forward packet
+  shell: |
+    echo 1 > /proc/sys/net/ipv4/ip_forward
+  when: nat.packet_forward
+
+- name: Add firewall rules for NAT 
+  shell: |
+    {% for rule in nat.rules  %}
+
+    check=$(iptables -t nat -nvL POSTROUTING | grep -w "{{ rule.src }}" | grep -w "{{ rule.dst }}")
+
+    if [ "x$check" = "x" ]; then
+      iptables -t nat -A POSTROUTING -s {{ rule.src }} -d {{ rule.dst }} -j MASQUERADE
+    fi
+    
+    {% endfor %}
+
+  when: nat.rules|length > 0

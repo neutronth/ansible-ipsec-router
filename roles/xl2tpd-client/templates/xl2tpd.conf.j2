@@ -1,0 +1,13 @@
+#jinja2: block_start_string: '[%', block_end_string: '%]', variable_start_string: '[[', variable_end_string: ']]'
+[lac vpn-connection]
+lns=[[ xl2tpd_client.server ]]
+refuse chap = yes
+refuse pap = yes
+require authentication = yes
+name = vpn-connection
+ppp debug = yes
+pppoptfile = /etc/ppp/xl2tpd-options
+length bit = yes
+autodial = yes
+redial = yes
+redial timeout = 5

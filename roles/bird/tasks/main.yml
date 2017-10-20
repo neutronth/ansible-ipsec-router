@@ -1,0 +1,24 @@
+---
+- name: Install required packages
+  apt: name={{item}} state=installed
+  with_items:
+    - bird
+
+- name: IP address for router-id 
+  shell: |
+    ip -o addr show dev eth0 | grep -w inet | awk '{print $4}' | cut -d/ -f1 
+  register: router_id
+
+- name: /etc/bird/bird.conf configuration
+  template:
+    src: bird.conf.j2
+    dest: /etc/bird/bird.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart bird 
+
+- name: bird service
+  service:
+    name: bird
+    state: started

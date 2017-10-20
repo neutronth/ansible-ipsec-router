@@ -1,0 +1,42 @@
+{
+  "strongswan": {
+    "ipsec_psk": "test123",
+    "ipsec_conns": {
+      "cgai-transit-ipsec-router.local-cgai-uat-ipsec-router.local": {
+        "left_host": "cgai-transit-ipsec-router.local",
+        "right_host": "cgai-uat-ipsec-router.local"
+      }
+    }
+  },
+
+  "xl2tpd_server_enabled": true,
+  "xl2tpd_server": {
+    "ip_range": "192.168.123.101-192.168.123.200",
+    "local_ip_range": "192.168.123.1-192.168.123.100",
+    "client_name": "vpnclient",
+    "client_secret": "simple123"
+  },
+
+  "xl2tpd_client_enabled": false,
+  "xl2tpd_client": {},
+
+  "bird": {
+    "router_id": "10.86.17.71",
+    "routing_subnet": "192.168.123.0/24",
+    "ospf_interface": {
+      "name": "ppp*",
+      "type": "ptp"
+    },
+    "static_routes": [
+      { "net": "10.0.0.0/8", "via": "10.86.17.65" }
+    ]
+  },
+
+  "nat": {
+    "packet_forward": true,
+    "rules": [
+      { "src": "192.168.123.0/24", "dst": "10.0.0.0/8" },
+      { "src": "172.16.0.0/16", "dst": "10.0.0.0/8" }
+    ]
+  }
+}

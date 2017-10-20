@@ -5,4 +5,7 @@
 
   roles:
     - strongswan
-    - xl2tpd-server
+    - { role: xl2tpd-server, when: xl2tpd_server_enabled }
+    - { role: xl2tpd-client, when: xl2tpd_client_enabled }
+    - bird
+    - nat

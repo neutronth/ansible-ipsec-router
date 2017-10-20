@@ -1,0 +1,14 @@
+#jinja2: block_start_string: '[%', block_end_string: '%]', variable_start_string: '[[', variable_end_string: ']]'
+ipcp-accept-local
+ipcp-accept-remote
+refuse-eap
+require-mschap-v2
+noccp
+noauth
+mtu 1460
+mru 1460
+nodefaultroute
+connect-delay 5000
+persist
+name [[ xl2tpd_client.client_name ]]
+password [[ xl2tpd_client.client_secret ]]
