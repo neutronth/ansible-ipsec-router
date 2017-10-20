@@ -1,5 +1,5 @@
 ---
-- name: restart xl2tpd
+- name: restart xl2tpd-client
   service:
     name: xl2tpd
     state: restarted

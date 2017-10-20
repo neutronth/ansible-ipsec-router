@@ -11,7 +11,7 @@
     owner: root
     group: root
     mode: 0644
-  notify: restart xl2tpd 
+  notify: restart xl2tpd-client
 
 - name: /etc/ppp/xl2tpd-options configuration
   template:
@@ -20,7 +20,7 @@
     owner: root
     group: root
     mode: 0600
-  notify: restart xl2tpd 
+  notify: restart xl2tpd-client
 
 - name: Add remote endpoint route
   shell: |
