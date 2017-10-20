@@ -21,7 +21,6 @@
   "xl2tpd_client": {},
 
   "bird": {
-    "router_id": "10.86.17.71",
     "routing_subnet": "192.168.123.0/24",
     "ospf_interface": {
       "name": "ppp*",

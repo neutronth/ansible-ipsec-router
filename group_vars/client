@@ -20,7 +20,6 @@
   },
 
   "bird": {
-    "router_id": "172.16.6.253",
     "routing_subnet": "192.168.123.0/24",
     "ospf_interface": {
       "name": "ppp*",
