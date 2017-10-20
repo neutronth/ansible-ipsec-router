@@ -33,3 +33,7 @@
   service:
     name: xl2tpd
     state: started
+
+- name: Start L2TP connection
+  shell: |
+    /usr/sbin/xl2tpd-control connect vpn-connection || true

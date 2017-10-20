@@ -36,3 +36,8 @@
   service:
     name: strongswan
     state: started
+
+- name: Up all connections
+  shell: |
+    /usr/sbin/ipsec up {{ item.key }}
+  with_dict: "{{ strongswan.ipsec_conns }}"
