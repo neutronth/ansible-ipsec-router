@@ -4,6 +4,15 @@
     echo 1 > /proc/sys/net/ipv4/ip_forward
   when: nat.packet_forward
 
+- name: Firewall rule to fix MSS on ppp interfaces
+  shell: |
+    check=$(iptables -t mangle -nvL POSTROUTING | grep -w "TCPMSS")
+
+    if [ "x$check" = "x" ]; then
+      iptables -t mangle -A POSTROUTING -o ppp+ -p tcp -m tcp --tcp-flags SYN,RST SYN \
+        -j TCPMSS --clamp-mss-to-pmtu
+    fi
+
 - name: Add firewall rules for NAT 
   shell: |
     {% for rule in nat.rules  %}
