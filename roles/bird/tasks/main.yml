@@ -9,6 +9,11 @@
     ip -o addr show dev eth0 | grep -w inet | awk '{print $4}' | cut -d/ -f1 
   register: router_id
 
+- name: IP address of default gateway
+  shell: |
+    ip route | grep default | awk '{print $3}'
+  register: default_gateway
+
 - name: /etc/bird/bird.conf configuration
   template:
     src: bird.conf.j2
