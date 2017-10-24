@@ -43,9 +43,9 @@
   with_dict: "{{ strongswan.ipsec_conns }}"
 
 - name: Add remote endpoint route
-    shell: |
-      DEST=$(host {{ item.value.right_host  }} | awk '{print $4}')
-      GW=$(ip route | grep default | awk '{print $3}')
-      ip route replace $DEST via $GW
+  shell: |
+    DEST=$(host {{ item.value.right_host  }} | awk '{print $4}')
+    GW=$(ip route | grep default | awk '{print $3}')
+    ip route replace $DEST via $GW
 
-    with_dict: "{{ strongswan.ipsec_conns }}"
+  with_dict: "{{ strongswan.ipsec_conns }}"
