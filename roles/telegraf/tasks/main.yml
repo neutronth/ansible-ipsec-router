@@ -1,0 +1,31 @@
+---
+- name: Install Telegraf package
+  apt:
+    deb: https://dl.influxdata.com/telegraf/releases/telegraf_1.4.3-1_amd64.deb
+
+- name: Install telegraf.conf
+  template:
+    src: telegraf.conf.j2
+    dest: /etc/telegraf/telegraf.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart telegraf
+
+- name: Install inputs.conntrack.conf
+  template:
+    src: inputs.conntrack.conf.j2
+    dest: /etc/telegraf/telegraf.d/inputs.conntrack.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart telegraf
+
+- name: Install outputs.cloudwatch.conf
+  template:
+    src: outputs.cloudwatch.conf.j2
+    dest: /etc/telegraf/telegraf.d/outputs.cloudwatch.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart telegraf

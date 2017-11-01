@@ -9,3 +9,4 @@
     - { role: xl2tpd-client, when: xl2tpd_client_enabled }
     - bird
     - nat
+    - telegraf
