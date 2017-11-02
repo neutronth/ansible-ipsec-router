@@ -29,3 +29,7 @@
     group: root
     mode: 0644
   notify: restart telegraf
+
+- name: Load nf_conntrack module
+  shell: |
+    /sbin/modprobe nf_conntrack
