@@ -1,0 +1,5 @@
+---
+- name: Install based packages
+  apt: name={{item}} state=installed
+  with_items:
+    - ntp
