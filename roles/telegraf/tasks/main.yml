@@ -1,7 +1,7 @@
 ---
 - name: Install Telegraf package
   apt:
-    deb: https://dl.influxdata.com/telegraf/releases/telegraf_1.4.3-1_amd64.deb
+    deb: https://dl.influxdata.com/telegraf/releases/telegraf_1.4.4-1_amd64.deb
 
 - name: Install telegraf.conf
   template:
