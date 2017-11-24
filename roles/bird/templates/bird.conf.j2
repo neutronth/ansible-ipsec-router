@@ -4,9 +4,11 @@ log syslog all;
 router id [[ router_id.stdout_lines[0] ]];
 
 filter route_filter {
- if net = 0.0.0.0/0 then reject;
- if net ~ [[ bird.routing_subnet ]] then reject;
- else accept;
+  if net = 0.0.0.0/0 then reject;
+[% for reject in bird.reject_subnets %]
+  if net ~ [[ reject.net ]] then reject;
+[% endfor %]
+  else accept;
 }
 
 protocol device {
