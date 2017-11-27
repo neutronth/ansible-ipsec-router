@@ -5,6 +5,9 @@ router id [[ router_id.stdout_lines[0] ]];
 
 filter route_filter {
   if net = 0.0.0.0/0 then reject;
+[% for accept in bird.accept_subnets %]
+  if net ~ [[ accept.net ]] then accept;
+[% endfor %]
 [% for reject in bird.reject_subnets %]
   if net ~ [[ reject.net ]] then reject;
 [% endfor %]
