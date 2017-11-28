@@ -1,0 +1,6 @@
+---
+- name: Install serf binary
+  unarchive:
+    src: https://releases.hashicorp.com/serf/0.8.1/serf_0.8.1_linux_amd64.zip
+    dest: /usr/local/bin
+    remote_src: yes
